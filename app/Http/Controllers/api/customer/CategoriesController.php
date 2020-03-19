@@ -11,9 +11,9 @@ class CategoriesController extends Controller
 
     public function index() {
 
-        $data['categories'] = Category::get('title');
+        $data['categories'] = Category::get(['id', 'title']);
 
-        return response()->json(['message' => 'تم الحصول علي التصنيفات بنجاح', 'data' => $data, 'status' => 1]);
+        return response()->json(['data' => $data, 'status' => 1]);
 
     }
 

@@ -17,11 +17,11 @@ class CustomerController extends Controller
         if($customer){
 
             $data['token'] =  $customer->createToken($customer->name)->accessToken;
-            return response()->json(['message' => 'تم تسجيل الدخول بنجاح', 'data' => $data, 'status' => 1]);
+            return response()->json(['data' => $data, 'status' => 1]);
 
         } else {
 
-            return response()->json(['message' => 'user not registered', 'status' => 0]);
+            return response()->json(['message' => 'عفواً انت غير مسجل', 'status' => 0]);
 
         }
 
@@ -48,25 +48,27 @@ class CustomerController extends Controller
         $data['customer'] = $customer;
         $data['token'] =  $customer->createToken($customer->name)->accessToken;
 
-        return response()->json(['message' => 'تم التسجيل بنجاح', 'data' => $data, 'status' => 1]);
+        return response()->json(['data' => $data, 'status' => 1]);
 
     }
 
     public function update(Request $request) {
 
+        $customer = Auth::guard('customer')->user();
+
         $messages = [
             'name.required' => 'عفوا قم بإدخال الاسم',
             'phone.required' => 'عفوا قم بإدخال رقم الهاتف',
-            'phone.unique' => 'عفوا تم التسجيل من قبل برقم الهاتف الذي ادخلته',
         ];
 
         $this->validate($request, [
             'name' => 'required',
-            'phone' => 'required|unique:customers'
+            'phone' => 'required'
         ], $messages);
 
-        $customer = Auth::guard('customer')->user();
-
+        if($customer->phone != $request->phone){
+            $this->validate($request, ['phone' => 'unique:customers']);
+        }
         $customer->name = $request->name;
         $customer->phone = $request->phone;
         $customer->save();
@@ -77,18 +79,11 @@ class CustomerController extends Controller
 
     }
 
-    public function details() {
-
-        $customer = Auth::guard('customer')->user();
-        return response()->json(['data' => $customer]);
-
-    }
-
     public function logout(Request $request) {
 
         $request->user()->token()->delete();
 
-        return response()->json(['message' => 'تم تسجيل الخروج بنجاح', 'status' => 1]);
+        return response()->json(['status' => 1]);
 
     }
 
