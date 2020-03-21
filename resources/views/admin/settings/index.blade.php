@@ -132,8 +132,17 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label">نسبة العمولة</label>
-                                            <input type="text" value="{{$setting->commission_rate}}" name="commission_rate" class="form-control form-control-alternative">
+                                            <label class="form-control-label">نسبة العمولة %</label>
+                                            <input type="number" value="{{$setting->commission_rate}}" name="commission_rate" class="form-control form-control-alternative">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">اصدارة التطبيق</label>
+                                            <input type="text" value="{{$setting->version}}" name="version" class="form-control form-control-alternative">
                                         </div>
                                     </div>
                                 </div>

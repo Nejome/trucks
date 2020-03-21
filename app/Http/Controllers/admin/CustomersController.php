@@ -17,4 +17,12 @@ class CustomersController extends Controller
 
     }
 
+    public function delete(Customer $customer) {
+
+        $customer->delete();
+
+        return redirect()->back()->with('deleted', 'تم حذف العميل بنجاح');
+
+    }
+
 }

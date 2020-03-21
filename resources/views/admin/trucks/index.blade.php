@@ -33,6 +33,15 @@
                             </div>
                         @endif
 
+                        @if(session()->has('delete_errors'))
+                            <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+                                <span class="alert-inner--text">{{session()->get('delete_errors')}}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @endif
+
                         @if(session()->has('truck_deleted'))
                             <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
                                 <span class="alert-inner--text">{{session()->get('truck_deleted')}}</span>
@@ -65,9 +74,9 @@
                                     <td>{{$truck->title}}</td>
                                     <td>{{$truck->category->title}}</td>
                                     <td>{{$truck->max_weight}}</td>
+                                    <td>{{$truck->start_price}}</td>
                                     <td>{{$truck->km_price}}</td>
                                     <td>{{$truck->factory}}</td>
-                                    <td>5</td>
                                     <td>
                                         @if(isset($truck->icon) && $truck->icon != '')
                                             <img src="{{asset('uploads/trucks/'.$truck->icon)}}" width="100%" height="100px">
@@ -80,7 +89,7 @@
                                             <i class="fas fa-edit text-warning"></i>
                                         </a>
                                         &nbsp;
-                                        <a href="#">
+                                        <a href="{{url('admin/trucks/'.$truck->id.'/delete')}}">
                                             <i class="fas fa-trash-alt text-danger fa-1x"></i>
                                         </a>
                                     </td>

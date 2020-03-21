@@ -1,5 +1,7 @@
 <?php
 
-/*==========Categories==========*/
-Route::get('categories', 'api\customer\CategoriesController@index');
+
+Route::get('categories', 'api\MainController@categories');
+
+Route::get('app-version', 'api\MainController@appVersion');
 

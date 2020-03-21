@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
 
             $table->bigInteger('driver_id')->unsigned()->nullable();
             $table->bigInteger('customer_id')->unsigned();
+            $table->bigInteger('truck_id')->unsigned();
 
             $table->string('customer_phone')->nullable();
             $table->string('shipment_type')->nullable();
@@ -33,8 +34,9 @@ class CreateOrdersTable extends Migration
 
             $table->integer('status')->default(0) /* waiting: 0, in-progress: 1, complete: 2, canceled: 3 */;
 
-            $table->foreign('driver_id')->references('id')->on('drivers');
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('truck_id')->references('id')->on('trucks')->onDelete('cascade');
             $table->timestamps();
         });
     }

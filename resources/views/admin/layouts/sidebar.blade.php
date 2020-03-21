@@ -74,12 +74,6 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('admin/drivers')}}">
-                        <i class="fas fa-id-badge text-cyan"></i>السائقين
-                    </a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link" href="{{url('/admin/categories')}}">
                         <i class="fas fa-table text-success"></i>التصنيفات
                     </a>
@@ -88,6 +82,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/admin/trucks')}}">
                         <i class="fas fa-truck text-yellow"></i> الشاحنات
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('admin/drivers')}}">
+                        <i class="fas fa-id-badge text-cyan"></i>السائقين
                     </a>
                 </li>
 

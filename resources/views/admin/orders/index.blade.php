@@ -24,14 +24,23 @@
                             </div>
                         @endif
 
+                        @if(session()->has('deleted'))
+                            <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                                <span class="alert-inner--text">{{session()->get('deleted')}}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @endif
+
                     </div>
 
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                             <tr class="text-center">
-                                <th scope="col">اسم العميل</th>
                                 <th scope="col">اسم السائق</th>
+                                <th scope="col">اسم العميل</th>
                                 <th scope="col">نوع الشحنة</th>
                                 <th scope="col">السعر</th>
                                 <th scope="col">الحالة</th>
@@ -42,7 +51,7 @@
 
                             @foreach($orders as $order)
                                 <tr class="text-center">
-                                    <td>{{$order->driver->name}}</td>
+                                    <td>@if(isset($order->driver)) {{$order->driver->name}} @else - @endif</td>
                                     <td>{{$order->customer->name}}</td>
                                     <td>{{$order->shipment_type}}</td>
                                     <td>{{$order->price}}</td>
@@ -58,8 +67,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#">
+                                        <a href="{{url('admin/orders/'.$order->id.'/details')}}">
                                             <i class="fas fa-eye text-success fa-1x"></i>
+                                        </a>
+                                        |
+                                        <a href="#" onclick="delete_confirm('{{url("admin/orders/".$order->id."/delete")}}')">
+                                            <i class="fas fa-trash text-danger fa-1x"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -82,5 +95,14 @@
         </div>
 
     </div>
+
+    <script>
+        function delete_confirm(url) {
+            var result = confirm('هل انت متأكد انك تريد حذف هذه الطلبية؟');
+            if(result){
+                location.href = url;
+            }
+        }
+    </script>
 
 @endsection

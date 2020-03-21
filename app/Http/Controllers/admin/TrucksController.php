@@ -31,9 +31,11 @@ class TrucksController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'category_id' => 'required',
+            'max_weight' => 'required',
             'start_price' => 'required|numeric',
-            'km_price' => 'numeric',
-            'factory' => 'numeric',
+            'km_price' => 'required|numeric',
+            'factory' => 'required|numeric',
+            'icon' => 'required|image'
         ]);
 
         $icon = time().'.'.$request->icon->getClientOriginalExtension();
@@ -68,9 +70,11 @@ class TrucksController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'category_id' => 'required',
+            'max_weight' => 'required',
             'start_price' => 'required|numeric',
-            'km_price' => 'numeric',
-            'factory' => 'numeric',
+            'km_price' => 'required|numeric',
+            'factory' => 'required|numeric',
+            'icon' => 'image'
         ]);
 
         if(isset($request->icon) && $request->icon != '') {
@@ -101,7 +105,13 @@ class TrucksController extends Controller
 
     public function delete(Truck $truck) {
 
-        //
+        if($truck->orders->count()) {
+            return redirect()->back()->with('delete_errors', 'عفواً تنتمي الي هذه الشاحنة عدة طلبية لذلك لا يمكنك حذفها');
+        }
+
+        $truck->delete();
+
+        return redirect()->back()->with('truck_deleted', 'تم حذف الشاحنة بنجاح');
 
     }
 

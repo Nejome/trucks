@@ -15,6 +15,15 @@
                             </div>
                         </div>
 
+                        @if(session()->has('deleted'))
+                            <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                                <span class="alert-inner--text">{{session()->get('deleted')}}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @endif
+
                     </div>
 
                     <div class="table-responsive">
@@ -36,8 +45,8 @@
                                     <td>10</td>
                                     <td>
 
-                                        <a href="#">
-                                            <i class="fas fa-edit text-warning"></i>
+                                        <a href="#" onclick="delete_confirm('{{url("admin/customers/".$customer->id."/delete")}}')">
+                                            <i class="fas fa-trash text-danger"></i>
                                         </a>
 
                                     </td>
@@ -53,5 +62,14 @@
         </div>
 
     </div>
+
+    <script>
+        function delete_confirm(url) {
+            var result = confirm('هل انت متأكد انك تريد حذف هذا العميل؟');
+            if(result){
+                location.href = url;
+            }
+        }
+    </script>
 
 @endsection

@@ -10,15 +10,19 @@ use App\Driver;
 class SessionController extends Controller
 {
 
+    public function loginPage() {
+
+        return view('admin.login');
+
+    }
+
     public function login(Request $request) {
 
         $data = $request->only(['email', 'password']);
 
         if(Auth::attempt($data)) {
 
-            $drivers = Driver::where('status', 0)->paginate();
-
-            return view('admin.index', compact(['drivers']));
+            return redirect(url('admin'));
 
         }else {
 
@@ -33,7 +37,7 @@ class SessionController extends Controller
 
         Auth::logout();
 
-        return redirect(url('admin/'));
+        return redirect(url('admin'));
 
     }
 

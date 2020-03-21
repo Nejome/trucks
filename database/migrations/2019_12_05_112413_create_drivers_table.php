@@ -23,7 +23,8 @@ class CreateDriversTable extends Migration
             $table->string('identification');
             $table->string('identification_image');
             $table->double('balance')->default(0);
-            $table->integer('status')->default(0);
+            $table->string('current_lat')->nullable();
+            $table->string('current_lng')->nullable();
             $table->integer('available')->default(0);
             $table->timestamps();
         });

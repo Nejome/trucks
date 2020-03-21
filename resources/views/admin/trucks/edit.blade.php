@@ -50,13 +50,13 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
-                                            <label class="form-control-label" >الاسم*</label>
+                                            <label class="form-control-label" >الاسم</label>
                                             <input type="text" value="{{$truck->title}}" name="title" class="form-control form-control-alternative">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label">التصنيف*</label>
+                                            <label class="form-control-label">التصنيف</label>
                                             <select name="category_id" class="form-control form-control-alternative">
                                                 @foreach($categories as $category)
                                                     <option value="{{$category->id}}" @if($truck->category_id == $category->id) selected @endif>{{$category->title}}</option>
@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label">السعر الابتدائي*</label>
+                                            <label class="form-control-label">السعر الابتدائي</label>
                                             <input type="text" value="{{$truck->start_price}}" name="start_price" class="form-control form-control-alternative">
                                         </div>
                                     </div>

@@ -17,4 +17,18 @@ class OrdersController extends Controller
 
     }
 
+    public function details(Order $order) {
+
+        return view('admin.orders.details', compact(['order']));
+
+    }
+
+    public function delete(Order $order){
+
+        $order->delete();
+
+        return redirect()->back()->with('deleted', 'تم حذف الطلبية بنجاح');
+
+    }
+
 }

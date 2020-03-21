@@ -13,4 +13,10 @@ class Customer extends Authenticatable
 
     protected $guard = 'customer';
 
+    public function orders() {
+
+        return $this->hasMany('App\Order');
+
+    }
+
 }

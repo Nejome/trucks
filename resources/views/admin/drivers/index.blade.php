@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.master')
 
 @section('content')
@@ -61,7 +62,7 @@
                         @endif
 
 
-                    @if(session()->has('field_exist'))
+                        @if(session()->has('field_exist'))
                             <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
                                 <span class="alert-inner--text">{{session()->get('field_exist')}}</span>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -112,7 +113,7 @@
                                             <i class="fas fa-edit text-warning"></i>
                                         </a>
                                         &nbsp;
-                                        <a href="{{url('/admin/drivers/'.$driver->id.'/delete')}}">
+                                        <a href="#" onclick="delete_confirm('{{url('/admin/drivers/'.$driver->id.'/delete')}}')">
                                             <i class="fas fa-trash-alt text-danger fa-1x"></i>
                                         </a>
                                     </td>
@@ -136,5 +137,14 @@
         </div>
 
     </div>
+
+    <script>
+        function delete_confirm(url) {
+            var result = confirm('هل انت متأكد انك تريد حذف هذا السائق ؟');
+            if(result){
+                location.href = url;
+            }
+        }
+    </script>
 
 @endsection

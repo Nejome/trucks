@@ -17,11 +17,11 @@ class CreateTrucksTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->bigInteger('category_id')->unsigned();
-            $table->string('max_weight')->nullable();
+            $table->string('max_weight');
             $table->double('start_price');
-            $table->double('km_price')->nullable();
-            $table->double('factory')->nullable();
-            $table->string('icon')->nullable();
+            $table->double('km_price');
+            $table->double('factory');
+            $table->string('icon');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });

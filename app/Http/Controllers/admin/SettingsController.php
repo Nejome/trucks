@@ -24,7 +24,8 @@ class SettingsController extends Controller
 
         $this->validate($request, [
            'name' => 'required',
-           'commission_rate' => 'required|numeric'
+           'commission_rate' => 'required|numeric|min:1|max:100',
+            'version' => 'required',
         ]);
 
         $user = Auth::user();
@@ -34,6 +35,7 @@ class SettingsController extends Controller
         $user->save();
 
         $setting->commission_rate = $request->commission_rate;
+        $setting->version = $request->version;
         $setting->save();
 
         session()->flash('settings_updated', 'تم تعديل بيانات الموقع بنجاح');

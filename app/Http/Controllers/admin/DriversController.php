@@ -11,7 +11,7 @@ class DriversController extends Controller
 
     public function index() {
 
-        $drivers = Driver::where('status', 1)->paginate(10);
+        $drivers = Driver::paginate(10);
 
         return view('admin.drivers.index', compact(['drivers']));
 
@@ -59,11 +59,10 @@ class DriversController extends Controller
         $driver->identification = $request->identification;
         $driver->truck_plate_image = $truck_plate_image;
         $driver->identification_image = $identification_image;
-        $driver->status = 1;
         $driver->balance = $request->balance;
         $driver->save();
 
-        session()->flash('driver_created', 'تمت اضافة وتفعيل السائق الجديد بنجاح');
+        session()->flash('driver_created', 'تمت اضافة السائق الجديد بنجاح');
         return redirect(url('/admin/drivers'));
 
     }
@@ -77,7 +76,7 @@ class DriversController extends Controller
     public function charge_balance(Request $request, Driver $driver) {
 
         $this->validate($request, [
-           'balance' => 'required|numeric|min:1'
+            'balance' => 'required|numeric|min:1'
         ]);
 
         $driver->balance = $driver->balance + $request->balance;

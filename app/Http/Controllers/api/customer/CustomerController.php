@@ -16,6 +16,7 @@ class CustomerController extends Controller
 
         if($customer){
 
+            $data['customer'] = $customer;
             $data['token'] =  $customer->createToken($customer->name)->accessToken;
             return response()->json(['data' => $data, 'status' => 1]);
 

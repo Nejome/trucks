@@ -32,6 +32,7 @@
 <script src="{{asset('cp/assets/vendor/chart.js/dist/Chart.min.js')}}"></script>
 <script src="{{asset('cp/assets/vendor/chart.js/dist/Chart.extension.js')}}"></script>
 <script src="{{asset('cp/assets/js/argon.js?v=1.0.0')}}"></script>
+@stack('pageScript')
 
 </body>
 </html>

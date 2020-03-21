@@ -12,17 +12,7 @@ class HomeController extends Controller
 
     public function index() {
 
-        if(Auth::check()) {
-
-            $drivers = Driver::where('status', 0)->paginate();
-
-            return view('admin.index', compact(['drivers']));
-
-        }else {
-
-            return view('admin.login');
-
-        }
+        return view('admin.index');
 
     }
 

@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        view()->share('g_drivers', Driver::where('status', 1)->count());
+        view()->share('g_drivers', Driver::all()->count());
         view()->share('g_trucks', Truck::all()->count());
         view()->share('g_customers', Customer::all()->count());
         view()->share('g_orders', Order::all()->count());

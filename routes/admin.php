@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'admin\HomeController@index');
-
+Route::get('/login', 'admin\SessionController@loginPage')->name('login');
 Route::post('/login', 'admin\SessionController@login');
 
-Route::middleware('admin')->group(function () {
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/', 'admin\HomeController@index');
 
     /* Session */
     Route::get('/logout', 'admin\SessionController@logout');
@@ -38,11 +39,15 @@ Route::middleware('admin')->group(function () {
     Route::post('/trucks/store', 'admin\TrucksController@store');
     Route::get('/trucks/{truck}/edit', 'admin\TrucksController@edit');
     Route::post('/trucks/{truck}/update', 'admin\TrucksController@update');
+    Route::get('/trucks/{truck}/delete', 'admin\TrucksController@delete');
 
     /* Customers routes */
     Route::get('/customers', 'admin\CustomersController@index');
+    Route::get('/customers/{customer}/delete', 'admin\CustomersController@delete');
 
     /* Orders routes */
     Route::get('/orders', 'admin\OrdersController@index');
+    Route::get('/orders/{order}/details', 'admin\OrdersController@details');
+    Route::get('/orders/{order}/delete', 'admin\OrdersController@delete');
 
 });
