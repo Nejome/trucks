@@ -131,7 +131,7 @@
 
     @push('pageScript')
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKUtiN-bHruEDPRjKN_-qjq1Kg8WAOjUI"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2MENlDYg5pS8-fRELKZWRw01JiiB1HVM"></script>
         <script>
 
             var from_lat = document.getElementById('from_lat').value;
