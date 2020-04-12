@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth:customer'], function(){
     Route::get('driver/{driver}/get-location', 'api\customer\HomeController@getDriverLocation');
 
     /*==========Orders==========*/
+    Route::post('orders/get-price', 'api\customer\OrdersController@getPrice');
     Route::post('orders/create', 'api\customer\OrdersController@create');
     Route::post('orders/{order}/change-status', 'api\customer\OrdersController@changeStatus');
     Route::get('orders/{order}/details', 'api\customer\OrdersController@details');

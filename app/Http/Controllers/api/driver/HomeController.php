@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use App\Setting;
 use Illuminate\Http\Request;
+use \App\Http\Resources\OrderResource;
 
 class HomeController extends Controller
 {
@@ -19,7 +20,7 @@ class HomeController extends Controller
             return response()->json(['message' => 'عفواً الطلبية غير موجودة', 'status' => 0]);
         }
 
-        $data['order'] = $order;
+        $data['order'] = new OrderResource($order);
 
         return response()->json(['data' => $data, 'status' => 1]);
 

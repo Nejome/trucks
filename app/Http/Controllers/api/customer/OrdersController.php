@@ -12,9 +12,39 @@ use App\Setting;
 use Illuminate\Support\Facades\Auth;
 use App\Events\OrderCreated;
 use App\Events\OrderAccepted;
+use App\Http\Resources\OrderResource;
 
 class OrdersController extends Controller
 {
+
+    public function getPrice(Request $request) {
+
+        $this->validate($request, [
+            'truck_id' => 'required',
+            'shipment_weight' => 'required',
+            'from_lat' => 'required',
+            'from_lng' => 'required',
+            'to_lat' => 'required',
+            'to_lng' => 'required',
+        ]);
+
+        $truck = Truck::find($request->truck_id);
+        if(!$truck) {
+            return response()->json(['message' => 'عفواً الشاحنة التي طلبتها غير موجودة', 'status' => 0]);
+        }
+
+        //count price
+        $kms = number_format($this->getDistanceBetweenPoints($request->from_lat, $request->from_lng, $request->to_lat, $request->to_lng));
+        $price = $truck->km_price * $kms * $truck->factory;
+        if($price < $truck->start_price) {
+            $price = $truck->start_price;
+        }
+
+        $data['price'] = $price;
+
+        return response()->json(['data' => $data, 'status' => 1]);
+
+    }
 
     public function create(Request $request) {
 
@@ -60,7 +90,7 @@ class OrdersController extends Controller
         $order->price = $price;
         $order->save();
 
-        $data['order'] = $order;
+        $data['order'] = new OrderResource($order);
 
         //broadcast
         broadcast(new OrderCreated($order))->toOthers();
@@ -128,7 +158,7 @@ class OrdersController extends Controller
         $order->status = $request->status;
         $order->save();
 
-        $data['order'] = $order;
+        $data['order'] = new OrderResource($order);
 
         return response()->json(['data' => $data, 'status' => 1]);
 
@@ -141,7 +171,7 @@ class OrdersController extends Controller
             return response()->json(['message' => 'عفواً الطلبية غير موجودة', 'status' => 0]);
         }
 
-        $data['order'] = $order;
+        $data['order'] = new OrderResource($order);
 
         return response()->json(['data' => $data, 'status' => 1]);
 
@@ -151,7 +181,7 @@ class OrdersController extends Controller
 
         $customer = Auth::guard('customer')->user();
 
-        $data['orders'] = $customer->orders;
+        $data['orders'] = OrderResource::collection($customer->orders);
 
         return response()->json(['data' => $data, 'status' => 1]);
 
